@@ -10,6 +10,10 @@ function App() {
   const [todos, setTodo] = useState(initStage);
   const todoNameRef = useRef();
 
+  function handleClearTodo() {
+    setTodo([])
+    localStorage.setItem(LOCAL_STORAGE_KEY,'')
+  }
   function handleAddTodo(e) {
     const name = todoNameRef.current.value;
     if (name === "") return;
@@ -36,8 +40,8 @@ function App() {
       <TodoList todos={todos} toggleTodo = {toggleTodo}/>
       <input ref={todoNameRef} type="text" />
       <button onClick={handleAddTodo}>Add Task</button>
-      <button>Clear</button>
-      <div>Number of tasks 0</div>
+      <button onClick={handleClearTodo}>Clear </button>
+      <div>{todos.filter(todo => !todo.complete).length} Number of tasks 0</div>
     </>
   );
 }
